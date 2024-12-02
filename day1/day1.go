@@ -1,4 +1,4 @@
-package main
+package day1
 
 import (
 	"bufio"
@@ -10,17 +10,10 @@ import (
 	"strings"
 )
 
-var left []int
-var right []int
-
-func main() {
-	file, err := os.Open("input-day1.txt")
-	if err != nil {
-		panic(err)
-	}
-	defer file.Close()
-
+func readFile(file *os.File) ([]int, []int) {
 	r := bufio.NewReader(file)
+	var left []int
+	var right []int
 
 	for {
 		line, _, err := r.ReadLine()
@@ -43,11 +36,10 @@ func main() {
 		}
 		right = append(right, rf)
 	}
+	return left, right
+}
 
-	// part 1
-	slices.Sort(left)
-	slices.Sort(right)
-
+func sumOfDiff(left []int, right []int) error {
 	var diff []int
 
 	for i, _ := range left {
@@ -70,8 +62,10 @@ func main() {
 	}
 
 	fmt.Printf("Sum of Differences: %d\n", sDiff)
+	return nil
+}
 
-	// part 2
+func sumOfSim(left []int, right []int) error {
 	mRight := map[int]int{}
 
 	for _, e := range right {
@@ -106,5 +100,26 @@ func main() {
 	}
 
 	fmt.Printf("Sum of Similarity: %d\n", sSim)
+
+	return nil
+}
+
+func ProcessAOCDay1(name string) error {
+
+	file, err := os.Open(name)
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+
+	left, right := readFile(file)
+
+	slices.Sort(left)
+	slices.Sort(right)
+
+	_ = sumOfDiff(left, right)
+	_ = sumOfSim(left, right)
+
+	return nil
 
 }
