@@ -5,6 +5,7 @@ import (
 	"github.com/greeshma1196/advent-of-code-2024/day2"
 	"github.com/greeshma1196/advent-of-code-2024/day3"
 	"github.com/greeshma1196/advent-of-code-2024/day4"
+	"github.com/greeshma1196/advent-of-code-2024/day5"
 )
 
 func main() {
@@ -12,4 +13,5 @@ func main() {
 	_ = day2.ProcessAOCDay2("input-day2.txt")
 	_ = day3.ProcessAOCDay3("input-day3.txt")
 	_ = day4.ProcessAOCDay4("input-day4.txt")
+	_ = day5.ProcessAOCDay5("input-day5.txt")
 }
