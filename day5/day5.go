@@ -10,59 +10,12 @@ import (
 	"strings"
 )
 
-func readFile(name string) (map[string][]string, []string) {
-	file, err := os.Open(name)
-	if err != nil {
-		panic(err)
-	}
-	defer file.Close()
-	nextPageNumbers := make(map[string][]string)
-	var input []string
-	r := bufio.NewReader(file)
-	for {
-		line, _, err := r.ReadLine()
-		if err == io.EOF {
-			break
-		}
-		if err != nil {
-			panic(err)
-		}
-		s := string(line)
+var incorrectArr [][]string
 
-		if strings.Contains(s, "|") {
-			n := strings.Split(s, "|")
-			n1 := n[0]
-			n2 := n[1]
-			v, ok := nextPageNumbers[n1]
-			if ok {
-				v = append(v, n2)
-				nextPageNumbers[n1] = v
-			} else {
-				nextPageNumbers[n1] = []string{n2}
-			}
-		} else if len(s) > 0 {
-			input = append(input, s)
-		}
-	}
-	return nextPageNumbers, input
-}
-
-func computeSumOfMid(res [][]string) int {
-	s := 0
-	for _, r := range res {
-		i := float64(len(r) / 2)
-		mid := int(math.Ceil(i))
-		num, _ := strconv.Atoi(r[mid])
-		s += num
-	}
-	return s
-}
-
-func ProcessAOCDay5(name string) error {
+func ComputeAOCDay5_1(name string) {
 	nextPageNumbers, input := readFile(name)
 
 	var res [][]string
-	var incorrectArr [][]string
 	for _, inp := range input {
 		data := strings.Split(inp, ",")
 		var r []string
@@ -93,7 +46,12 @@ func ProcessAOCDay5(name string) error {
 
 	s := computeSumOfMid(res)
 
-	fmt.Printf("Result part 1: %d", s)
+	fmt.Printf("Result day 5 part 1: %d\n", s)
+}
+
+func ComputeAOCDay5_2(name string) {
+
+	nextPageNumbers, _ := readFile(name)
 
 	var correctArr [][]string
 	for _, arr := range incorrectArr {
@@ -144,11 +102,57 @@ func ProcessAOCDay5(name string) error {
 		}
 	}
 
-	s = computeSumOfMid(correctArr)
+	s := computeSumOfMid(correctArr)
 
-	fmt.Printf("Result part 2: %d\n", s)
+	fmt.Printf("Result day 5 part 2: %d\n", s)
+}
 
-	return nil
+func readFile(name string) (map[string][]string, []string) {
+	file, err := os.Open(name)
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+	nextPageNumbers := make(map[string][]string)
+	var input []string
+	r := bufio.NewReader(file)
+	for {
+		line, _, err := r.ReadLine()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			panic(err)
+		}
+		s := string(line)
+
+		if strings.Contains(s, "|") {
+			n := strings.Split(s, "|")
+			n1 := n[0]
+			n2 := n[1]
+			v, ok := nextPageNumbers[n1]
+			if ok {
+				v = append(v, n2)
+				nextPageNumbers[n1] = v
+			} else {
+				nextPageNumbers[n1] = []string{n2}
+			}
+		} else if len(s) > 0 {
+			input = append(input, s)
+		}
+	}
+	return nextPageNumbers, input
+}
+
+func computeSumOfMid(res [][]string) int {
+	s := 0
+	for _, r := range res {
+		i := float64(len(r) / 2)
+		mid := int(math.Ceil(i))
+		num, _ := strconv.Atoi(r[mid])
+		s += num
+	}
+	return s
 }
 
 func checkArray(arr []string, nextPageNum map[string][]string) bool {

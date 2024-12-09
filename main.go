@@ -10,11 +10,19 @@ import (
 )
 
 func main() {
-	_ = day1.ProcessAOCDay1("input-day1.txt")
-	_ = day2.ProcessAOCDay2("input-day2.txt")
-	_ = day3.ProcessAOCDay3("input-day3.txt")
-	_ = day4.ProcessAOCDay4("input-day4.txt")
-	_ = day5.ProcessAOCDay5("input-day5.txt")
-	_ = day6.ProcessAOCDay6_1("input-day6.txt")
-	_ = day6.ProcessAOCDay6_2("input-day6.txt")
+	day1.ComputeAOCDay1("input-day1.txt")
+
+	day2.ComputeAOCDay2_1("input-day2.txt")
+	day2.ComputeAOCDay2_2("input-day2.txt")
+
+	day3.ComputeAOCDay3_1("input-day3.txt")
+	day3.ComputeAOCDay3_2("input-day3.txt")
+
+	day4.ComputeAOCDay4("input-day4.txt")
+
+	day5.ComputeAOCDay5_1("input-day5.txt")
+	day5.ComputeAOCDay5_2("input-day5.txt")
+
+	day6.ComputeAOCDay6_1("input-day6.txt")
+	day6.ComputeAOCDay6_2("input-day6.txt")
 }

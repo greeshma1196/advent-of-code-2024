@@ -10,6 +10,24 @@ import (
 	"strings"
 )
 
+func ComputeAOCDay1(name string) {
+
+	file, err := os.Open(name)
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+
+	left, right := readFile(file)
+
+	slices.Sort(left)
+	slices.Sort(right)
+
+	_ = sumOfDiff(left, right)
+	_ = sumOfSim(left, right)
+
+}
+
 func readFile(file *os.File) ([]int, []int) {
 	r := bufio.NewReader(file)
 	var left []int
@@ -61,7 +79,7 @@ func sumOfDiff(left []int, right []int) error {
 		sDiff += e
 	}
 
-	fmt.Printf("Sum of Differences: %d\n", sDiff)
+	fmt.Printf("Result day 1 part 1: %d\n", sDiff)
 	return nil
 }
 
@@ -99,27 +117,7 @@ func sumOfSim(left []int, right []int) error {
 		sSim += e
 	}
 
-	fmt.Printf("Sum of Similarity: %d\n", sSim)
+	fmt.Printf("Result day 1 part 2: %d\n", sSim)
 
 	return nil
-}
-
-func ProcessAOCDay1(name string) error {
-
-	file, err := os.Open(name)
-	if err != nil {
-		panic(err)
-	}
-	defer file.Close()
-
-	left, right := readFile(file)
-
-	slices.Sort(left)
-	slices.Sort(right)
-
-	_ = sumOfDiff(left, right)
-	_ = sumOfSim(left, right)
-
-	return nil
-
 }

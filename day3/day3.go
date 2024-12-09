@@ -9,32 +9,13 @@ import (
 	"strconv"
 )
 
-func readFile(name string) string {
-	file, err := os.Open(name)
-	if err != nil {
-		panic(err)
-	}
-	defer file.Close()
-	var s string
-	r := bufio.NewReader(file)
-	for {
-		line, _, err := r.ReadLine()
-		if err == io.EOF {
-			break
-		}
-		if err != nil {
-			panic(err)
-		}
-		s += string(line)
-	}
-	return s
-}
+var input string
 
-func ProcessAOCDay3(name string) error {
-	s := readFile(name)
+func ComputeAOCDay3_1(name string) {
+	input = readFile(name)
 
 	exp := regexp.MustCompile(`mul\([0-9]+\,[0-9]+\)`)
-	matches := exp.FindAllString(s, -1)
+	matches := exp.FindAllString(input, -1)
 
 	exp = regexp.MustCompile(`[0-9]+`)
 	res := 0
@@ -45,12 +26,16 @@ func ProcessAOCDay3(name string) error {
 		res += a * b
 	}
 
-	fmt.Printf("Sum Part 1: %d\n", res)
+	fmt.Printf("Result day 3 part 1: %d\n", res)
+}
 
-	res = 0
+func ComputeAOCDay3_2(name string) {
+	res := 0
 	idx := 0
-	exp = regexp.MustCompile(`(?i)(mul\(\d+,\d+\)|don't|do)`)
-	matches = exp.FindAllString(s, -1)
+
+	exp := regexp.MustCompile(`(?i)(mul\(\d+,\d+\)|don't|do)`)
+	matches := exp.FindAllString(input, -1)
+
 	exp = regexp.MustCompile(`[0-9]+`)
 	for idx < len(matches) {
 		if matches[idx] != "don't" && matches[idx] != "do" {
@@ -74,7 +59,26 @@ func ProcessAOCDay3(name string) error {
 			idx += 1
 		}
 	}
-	fmt.Printf("Sum Part 2: %d\n", res)
+	fmt.Printf("Result day 3 part 2: %d\n", res)
+}
 
-	return nil
+func readFile(name string) string {
+	file, err := os.Open(name)
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+	var s string
+	r := bufio.NewReader(file)
+	for {
+		line, _, err := r.ReadLine()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			panic(err)
+		}
+		s += string(line)
+	}
+	return s
 }

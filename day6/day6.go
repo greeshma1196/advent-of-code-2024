@@ -8,17 +8,15 @@ import (
 	"strings"
 )
 
-func ProcessAOCDay6_1(name string) error {
+func ComputeAOCDay6_1(name string) {
 	input := readFile(name)
 
 	res := stepCounter(input)
 
-	fmt.Printf("Result day 5 part 1: %d\n", res)
-
-	return nil
+	fmt.Printf("Result day 6 part 1: %d\n", res)
 }
 
-func ProcessAOCDay6_2(name string) error {
+func ComputeAOCDay6_2(name string) {
 	input := readFile(name)
 
 	direction, r, c := getStartPos(input)
@@ -43,9 +41,7 @@ func ProcessAOCDay6_2(name string) error {
 		}
 	}
 
-	fmt.Printf("Result day 5 part 2: %d\n", obsCount)
-
-	return nil
+	fmt.Printf("Result day 6 part 2: %d\n", obsCount)
 }
 
 func stepCounter(input [][]string) int {

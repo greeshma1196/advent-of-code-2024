@@ -8,29 +8,10 @@ import (
 	"strings"
 )
 
-func readFile(name string) []string {
-	file, err := os.Open(name)
-	if err != nil {
-		panic(err)
-	}
-	defer file.Close()
-	s := []string{}
-	r := bufio.NewReader(file)
-	for {
-		line, _, err := r.ReadLine()
-		if err == io.EOF {
-			break
-		}
-		if err != nil {
-			panic(err)
-		}
-		s = append(s, string(line))
-	}
-	return s
-}
+var input []string
 
-func ProcessAOCDay4(name string) error {
-	input := readFile(name)
+func ComputeAOCDay4(name string) {
+	input = readFile(name)
 
 	runes := make(map[[2]int]string)
 	neighbourPositions := make(map[[2]int][8][2]int)
@@ -140,7 +121,7 @@ func ProcessAOCDay4(name string) error {
 		}
 	}
 
-	fmt.Printf("results part 1: %d\n", results)
+	fmt.Printf("Result day 4 part 1: %d\n", results)
 
 	results = 0
 	for row, r := range input {
@@ -161,7 +142,26 @@ func ProcessAOCDay4(name string) error {
 		}
 	}
 
-	fmt.Printf("results part 2: %d\n", results)
+	fmt.Printf("Result day 4 part 2: %d\n", results)
+}
 
-	return nil
+func readFile(name string) []string {
+	file, err := os.Open(name)
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+	s := []string{}
+	r := bufio.NewReader(file)
+	for {
+		line, _, err := r.ReadLine()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			panic(err)
+		}
+		s = append(s, string(line))
+	}
+	return s
 }

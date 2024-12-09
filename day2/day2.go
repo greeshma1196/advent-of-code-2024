@@ -9,6 +9,53 @@ import (
 	"strings"
 )
 
+var unsafeArr [][]int
+var res int
+
+func ComputeAOCDay2_1(name string) {
+
+	arr := readFile(name)
+	for _, a := range arr {
+
+		isSafe := checkSafety(a)
+
+		if isSafe {
+			res += 1
+		} else {
+			unsafeArr = append(unsafeArr, a)
+		}
+	}
+
+	fmt.Printf("Result day 2 part 1: %d\n", res)
+}
+
+func ComputeAOCDay2_2(name string) {
+
+	for _, a := range unsafeArr {
+		s := len(a)
+		c := 0
+
+		for c < s {
+			var b []int
+			for i, e := range a {
+				if i != c {
+					b = append(b, e)
+				}
+			}
+
+			isSafe := checkSafety(b)
+			if isSafe {
+				res += 1
+				break
+			}
+
+			c += 1
+		}
+	}
+
+	fmt.Printf("Result day 2 part 2: %d\n", res)
+}
+
 func readFile(name string) [][]int {
 	file, err := os.Open(name)
 	if err != nil {
@@ -67,50 +114,4 @@ func checkSafety(arr []int) bool {
 	}
 
 	return true
-}
-
-func ProcessAOCDay2(name string) error {
-
-	arr := readFile(name)
-	var unsafeArr [][]int
-	res := 0
-	for _, a := range arr {
-
-		isSafe := checkSafety(a)
-
-		if isSafe {
-			res += 1
-		} else {
-			unsafeArr = append(unsafeArr, a)
-		}
-	}
-
-	fmt.Printf("Number of safe reports: %d\n", res)
-	fmt.Printf("Number of unsafe reports: %d\n", len(unsafeArr))
-
-	for _, a := range unsafeArr {
-		s := len(a)
-		c := 0
-
-		for c < s {
-			var b []int
-			for i, e := range a {
-				if i != c {
-					b = append(b, e)
-				}
-			}
-
-			isSafe := checkSafety(b)
-			if isSafe {
-				res += 1
-				break
-			}
-
-			c += 1
-		}
-	}
-
-	fmt.Printf("Number of safe reports after using dampner: %d\n", res)
-
-	return nil
 }
