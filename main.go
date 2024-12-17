@@ -8,6 +8,7 @@ import (
 	"github.com/greeshma1196/advent-of-code-2024/day5"
 	"github.com/greeshma1196/advent-of-code-2024/day6"
 	"github.com/greeshma1196/advent-of-code-2024/day7"
+	"github.com/greeshma1196/advent-of-code-2024/day8"
 )
 
 func main() {
@@ -29,4 +30,7 @@ func main() {
 
 	day7.ComputeAOCDay7_1("input-day7.txt")
 	day7.ComputeAOCDay7_2("input-day7.txt")
+
+	day8.ComputeAOCDay8_1("input-day8.txt")
+	day8.ComputeAOCDay8_2("input-day8.txt")
 }
